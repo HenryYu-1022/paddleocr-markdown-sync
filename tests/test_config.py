@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from paddleocr_markdown_sync.config import (
@@ -67,4 +68,5 @@ def test_write_token_creates_private_credentials_file(tmp_path, monkeypatch):
     write_token("secret-value", target)
 
     assert read_token(target) == "secret-value"
-    assert target.stat().st_mode & 0o777 == 0o600
+    if os.name != "nt":
+        assert target.stat().st_mode & 0o777 == 0o600

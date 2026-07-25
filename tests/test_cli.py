@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from paddleocr_markdown_sync.cli import build_parser, main
@@ -41,7 +42,8 @@ def test_init_writes_config_and_empty_private_credentials(
     assert "PADDLE_OCR_TOKEN=" in credentials_path().read_text(encoding="utf-8")
     assert "把 Token" in capsys.readouterr().out
     assert markdown_root.is_dir()
-    assert credentials_path().stat().st_mode & 0o777 == 0o600
+    if os.name != "nt":
+        assert credentials_path().stat().st_mode & 0o777 == 0o600
 
 
 def test_doctor_returns_two_when_token_is_missing(monkeypatch, tmp_path, capsys):
