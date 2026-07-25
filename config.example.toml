@@ -1,0 +1,13 @@
+[library]
+pdf_root = "/path/to/your/PDF-library"
+markdown_root = "/path/to/your/markdown-output"
+
+[sync]
+daily_page_limit = 19000
+poll_interval = 5.0
+http_timeout = 120
+max_retries = 3
+
+[api]
+job_url = "https://paddleocr.aistudio-app.com/api/v2/ocr/jobs"
+model = "PaddleOCR-VL-1.6"
